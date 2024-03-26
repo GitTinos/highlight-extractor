@@ -1,0 +1,28 @@
+version: '3.8'
+
+volumes:
+  static_volume:
+    name: highlight_extractor_static_volume
+
+services:
+  backend:
+    container_name: highlight-extractor-backend
+    ports:
+      - "8000:8000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./src/:/app/
+      - static_volume:/app/static
+    environment:
+      - DEBUG=True
+    networks:
+      - highlight-extractor-network
+
+
+networks:
+  highlight-extractor-network:
+    driver: bridge

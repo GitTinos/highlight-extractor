@@ -1,0 +1,23 @@
+# Bytecode di Python
+__pycache__/
+*.pyc
+*.pyo
+
+# File di ambiente virtuale
+venv/
+.env
+
+# File di sistema
+.DS_Store
+
+# File e directory di controllo di versione
+.git/
+.gitignore
+
+# File di configurazione editor/IDE
+.idea/
+.vscode/
+
+# File e cartelle specifiche del progetto
+*.log
+tmp/
