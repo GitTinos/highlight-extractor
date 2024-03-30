@@ -18,9 +18,6 @@ BACKEND_CONTAINER_NAME = highlight-extractor-backend
 be_bash:
 	$(docker_exec_it_base_cmd) $(BACKEND_CONTAINER_NAME) bash
 
-fe_bash:
-	$(docker_exec_it_base_cmd) $(FRONTEND_CONTAINER_NAME) sh
-
 # Only the first time you run the project
 
 up_rebuilding: 
@@ -28,7 +25,6 @@ up_rebuilding:
 
 up: 
 	$(local_compose_up) $(BACKEND_SERVICE_NAME)
-	$(local_compose_up) $(FRONTEND_SERVICE_NAME)
 
 # LOCAL
 up_backend:
