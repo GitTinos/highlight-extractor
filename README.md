@@ -18,6 +18,6 @@ This powerful tool simplifies the process of retrieving annotations and highligh
 
 The command to make a test
 ```bash
-python3 main.py doc_test/pdf-name-file
+time python3 main.py doc_test/pdf-name-file
 ```
 

@@ -2,7 +2,7 @@ import argparse
 
 from pdf_manager import PDFManager
 from ocr import OCRProcessor
-from utils import clean_text
+from utils import clean_text, start_progress_bar
 
 
 def main():
@@ -12,15 +12,31 @@ def main():
     parser.add_argument("pdf_path", help="The path to the PDF file to analyze.")
     args = parser.parse_args()
 
+    total_pages = PDFManager.get_total_pages(args.pdf_path)
     ocr_processor = OCRProcessor()
-
     extractions = []
-    images = PDFManager.convert_pdf_to_images(args.pdf_path)
-    for page_num, image in enumerate(images):
-        text = ocr_processor.find_yellow_highlights_and_extract_text(image)
-        cleaned_text = clean_text(text)
-        if cleaned_text:
-            extractions.append(f"Page {page_num + 1}: {cleaned_text}")
+
+    progress_bar = start_progress_bar(total_pages)
+
+    page_block_size = 50
+    start_page = 1
+
+    while start_page <= total_pages:
+        end_page = min(start_page + page_block_size - 1, total_pages)
+        images = PDFManager.convert_pdf_to_images(
+            args.pdf_path, start_page=start_page, end_page=end_page
+        )
+
+        for page_num, image in enumerate(images, start=start_page):
+            text = ocr_processor.find_yellow_highlights_and_extract_text(image)
+            cleaned_text = clean_text(text)
+            if cleaned_text:
+                extractions.append(f"Page {page_num}: {cleaned_text}")
+            progress_bar.update(1)
+
+        start_page += page_block_size
+
+    progress_bar.close()
 
     with open("text_extractions.txt", "w") as file:
         for extraction in extractions:
