@@ -4,7 +4,7 @@ import fitz
 
 class PDFManager:
     @staticmethod
-    def convert_pdf_to_images(pdf_path, dpi=200, timeout=600, start_page=None, end_page=None):
+    def convert_pdf_to_images(pdf_path, dpi=300, timeout=600, start_page=None, end_page=None):
         return convert_from_path(pdf_path, dpi=dpi, first_page=start_page, last_page=end_page, timeout=timeout)
 
     @staticmethod

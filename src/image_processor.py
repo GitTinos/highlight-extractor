@@ -12,5 +12,5 @@ class ImagePreprocessor:
     @staticmethod
     def dilate_mask(mask):
         kernel = np.ones((5, 5), np.uint8)
-        dilated_mask = cv2.dilate(mask, kernel, iterations=1)
+        dilated_mask = cv2.dilate(mask, kernel, iterations=2)
         return dilated_mask
