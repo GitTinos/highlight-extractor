@@ -4,6 +4,8 @@ from pdf_manager import PDFManager
 from ocr import OCRProcessor
 from utils import clean_text, start_progress_bar
 
+from settings import OUTPUT_FILENAME
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -38,7 +40,7 @@ def main():
 
     progress_bar.close()
 
-    with open("text_extractions.txt", "w") as file:
+    with open(OUTPUT_FILENAME, "w") as file:
         for extraction in extractions:
             file.write(f"- {extraction}\n")
 
