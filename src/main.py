@@ -1,50 +1,25 @@
 import argparse
 
-from pdf_manager import PDFManager
-from ocr import OCRProcessor
 from utils import clean_text, start_progress_bar
 
-from settings import OUTPUT_FILENAME
+import settings
+from lib import HighlightExtractorArgs
+from lib import PDFReader
+from lib import ReportWriter
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Extract text from yellow highlighted areas in a PDF."
-    )
-    parser.add_argument("pdf_path", help="The path to the PDF file to analyze.")
-    args = parser.parse_args()
+    args = HighlightExtractorArgs()
+    args.parse()
 
-    total_pages = PDFManager.get_total_pages(args.pdf_path)
-    ocr_processor = OCRProcessor()
-    extractions = []
+    pdf_reader = PDFReader()
+    pdf_reader.filename = args.pdf_filename
+    pdf_reader.threads_to_use = settings.PDF2IMAGE_THREADS_COUNT
 
-    progress_bar = start_progress_bar(total_pages)
+    report_writer = ReportWriter()
+    report_writer.format = ReportWriter.FORMAT_TXT
 
-    page_block_size = 50
-    start_page = 1
-
-    while start_page <= total_pages:
-        end_page = min(start_page + page_block_size - 1, total_pages)
-        images = PDFManager.convert_pdf_to_images(
-            args.pdf_path, start_page=start_page, end_page=end_page
-        )
-
-        for page_num, image in enumerate(images, start=start_page):
-            text = ocr_processor.find_yellow_highlights_and_extract_text(image)
-            cleaned_text = clean_text(text)
-            if cleaned_text:
-                extractions.append(f"Page {page_num}: {cleaned_text}")
-            progress_bar.update(1)
-
-        start_page += page_block_size
-
-    progress_bar.close()
-
-    with open(OUTPUT_FILENAME, "w") as file:
-        for extraction in extractions:
-            file.write(f"- {extraction}\n")
-
-    print("Extractions completed and saved to 'text_extractions.txt'.")
+    pdf_reader.write_report(report_writer=report_writer, output_filename=settings.OUTPUT_FILENAME)
 
 
 if __name__ == "__main__":
