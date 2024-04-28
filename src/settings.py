@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # The folder for the file outputs
-OUTPUT_FODER = Path.cwd() / '../output/'
+OUTPUT_FODER = Path(__file__).parent / '../output/'
 
 # Extracted text filename
 OUTPUT_FILENAME = OUTPUT_FODER / 'text_extractions.txt'
