@@ -47,7 +47,7 @@ class PDFImageOcrStrategy:
         return text
 
 
-class PDFHighlighetTextExtractor:
+class PDFHighlighedTextExtractor:
     def __init__(self) -> None:
         self._filename = ''
         self._extract_strategy = None

@@ -1,3 +1,3 @@
 from .highlightextractorargs import HighlightExtractorArgs
-from .pdfhighlightedtextextractor import PDFHighlighetTextExtractor, PDFImageOcrStrategy
+from .pdfhighlightedtextextractor import PDFHighlighedTextExtractor, PDFImageOcrStrategy
 from .report_writer import ReportWriter

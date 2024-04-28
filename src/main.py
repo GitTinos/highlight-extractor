@@ -4,7 +4,7 @@ from utils import clean_text, start_progress_bar
 
 import settings
 from lib import HighlightExtractorArgs
-from lib import PDFHighlighetTextExtractor, PDFImageOcrStrategy
+from lib import PDFHighlighedTextExtractor, PDFImageOcrStrategy
 from lib import ReportWriter
 
 
@@ -20,7 +20,7 @@ def main():
     extract_strategy.threads_to_use = settings.PDF2IMAGE_THREADS_COUNT
 
     # Setup the PDF highlighted text extractor.
-    pdf_extractor = PDFHighlighetTextExtractor()
+    pdf_extractor = PDFHighlighedTextExtractor()
     pdf_extractor.filename = args.pdf_filename
     pdf_extractor.extract_strategy = extract_strategy
 
