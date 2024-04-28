@@ -1,1 +1,10 @@
 src/.DS_Store
+
+# Pycache
+__pycache__/
+
+# Python virtualenv (in case you aren't using Docker)
+env/
+
+# Output folder
+output/
