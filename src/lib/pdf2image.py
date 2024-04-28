@@ -252,7 +252,6 @@ class PDF2Image:
                     # this startupinfo structure prevents a console window from popping up on Windows
                     startupinfo = subprocess.STARTUPINFO()
                     startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-                print('*** aperto processo...')
                 processes.append(
                     (
                         thread_output_file,
